@@ -1,0 +1,48 @@
+
+
+import streamlit as st
+import pandas as pd
+import joblib
+
+# Load models
+reg_model = joblib.load("regression_model.pkl")
+clf_model = joblib.load("classification_model.pkl")
+
+st.title("🎯 Training Effectiveness Predictor")
+
+# User input
+experience = st.slider("Trainee Experience (Years)", 0, 15, 2)
+duration = st.slider("Training Duration (Hours)", 1, 8, 3)
+engagement = st.slider("Engagement Score", 0.3, 1.0, 0.7)
+pre_score = st.slider("Pre-training Score", 30.0, 70.0, 50.0)
+difficulty = st.selectbox("Course Difficulty", ['Easy', 'Medium', 'Hard'])
+instructor = st.slider("Instructor Rating", 2.5, 5.0, 4.0)
+
+# Prepare input
+input_df = pd.DataFrame({
+    "trainee_experience_years": [experience],
+    "training_duration_hours": [duration],
+    "engagement_score": [engagement],
+    "pre_training_score": [pre_score],
+    "instructor_rating": [instructor],
+    "course_difficulty_Medium": [1 if difficulty == "Medium" else 0],
+    "course_difficulty_Hard": [1 if difficulty == "Hard" else 0]
+})
+
+# Predict
+if st.button("Predict Training Effectiveness"):
+    reg_pred = reg_model.predict(input_df)[0]
+    clf_pred = clf_model.predict(input_df)[0]
+    st.write(f"📈 **Predicted Effectiveness Score**: {reg_pred:.2f}")
+    st.write("✅ High Effectiveness" if clf_pred == 1 else "⚠️ Low Effectiveness")
+
+💾 3. Save the Models
+
+import joblib
+
+joblib.dump(rf_model, "regression_model.pkl")
+joblib.dump(clf, "classification_model.pkl")
+
+🚀 To Run the Streamlit App
+
+streamlit run app.py
