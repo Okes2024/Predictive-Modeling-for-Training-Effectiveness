@@ -75,10 +75,9 @@ pip install -r requirements.txt
 
     Connect to real-world HR or LMS data
 
-👨‍💻 Author
+👨‍💻 Author: Okes Imoni
+GitHub: @Okes2024
 
-Your Name
-GitHub • LinkedIn • Email
 📄 License
 
 MIT License. Free to use, modify, and share.
